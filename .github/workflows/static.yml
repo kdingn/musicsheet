@@ -39,8 +39,8 @@ jobs:
         uses: actions/upload-pages-artifact@v1
         with:
           # Upload entire repository
-          # path: '.'
-          path: 'publicpage/docs' # 追加
+          # path: '.' # 削除
+          path: "publicpage/dist" # 追加
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v2
