@@ -1,5 +1,5 @@
 <template>
-  <v-toolbar color="primary">
+  <v-toolbar color="primary" flat>
     <v-app-bar-nav-icon color="white"></v-app-bar-nav-icon>
     <v-toolbar-title class="white--text">{{ title }}</v-toolbar-title>
     <v-spacer></v-spacer>
@@ -12,7 +12,7 @@
 <script>
 export default {
   data: () => ({
-    title: "Title",
+    title: "Musicsheet",
   }),
 };
 </script>
