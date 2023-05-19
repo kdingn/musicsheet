@@ -1,6 +1,6 @@
 <template>
-  <v-toolbar color="primary" flat>
-    <v-app-bar-nav-icon color="white"></v-app-bar-nav-icon>
+  <v-toolbar color="blue-grey darken-3" flat>
+    <v-img src="@/assets/favicon.png" max-width="22" class="mr-1" />
     <v-toolbar-title class="white--text">{{ title }}</v-toolbar-title>
     <v-spacer></v-spacer>
     <v-btn icon href="https://github.com/kdingn/publicpage">
