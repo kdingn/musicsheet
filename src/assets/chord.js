@@ -55,11 +55,20 @@ const rootAll = {
   F: 6,
   "F#": 7,
   G: 8,
+  Ab: 9,
+  A: 10,
   Bb: 11,
   B: 0,
 };
 
+const rootAllInverse = Object.fromEntries(
+  Object.entries(rootAll).map(function (value) {
+    return [value[1], value[0]];
+  })
+);
+
 export default {
-  rootAll,
   chordAll,
+  rootAll,
+  rootAllInverse,
 };

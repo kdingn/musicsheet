@@ -24,10 +24,10 @@
       <v-row class="ma-1">
         <span class="mt-1 mr-4 ml-2">Transpose</span>
         <span class="mt-1 mr-1">:</span>
-        <v-btn icon>
+        <v-btn icon @click="transposeKey(1)">
           <v-icon size="19"> mdi-plus </v-icon>
         </v-btn>
-        <v-btn icon class="ml-n2">
+        <v-btn icon @click="transposeKey(11)" class="ml-n2">
           <v-icon size="19"> mdi-minus </v-icon>
         </v-btn>
       </v-row>
@@ -59,6 +59,7 @@ import chord from "@/assets/chord";
 export default {
   data: () => ({
     rootAll: chord.rootAll,
+    rootAllInverse: chord.rootAllInverse,
     chordAll: chord.chordAll,
     title: "Now's the time",
     key: "F",
@@ -92,5 +93,13 @@ export default {
       },
     ],
   }),
+  methods: {
+    changeRoot(root, n) {
+      return chord.rootAllInverse[(chord.rootAll[root] + n) % 12];
+    },
+    transposeKey(n) {
+      this.key = this.changeRoot(this.key, n);
+    },
+  },
 };
 </script>
