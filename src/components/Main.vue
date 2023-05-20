@@ -20,113 +20,35 @@
       </v-col>
     </v-row>
 
-    <v-row class="mt-n6">
-      <v-spacer></v-spacer>
-      <span class="mt-1">Transpose : </span>
-      <v-btn icon>
-        <v-icon size="20"> mdi-plus </v-icon>
-      </v-btn>
-      <v-btn icon class="ml-n2 mr-2">
-        <v-icon size="20"> mdi-minus </v-icon>
-      </v-btn>
-    </v-row>
+    <v-card flat outlined class="mt-n6 mb-2">
+      <v-row class="ma-1">
+        <span class="mt-1 mr-4 ml-2">Transpose</span>
+        <span class="mt-1 mr-1">:</span>
+        <v-btn icon>
+          <v-icon size="19"> mdi-plus </v-icon>
+        </v-btn>
+        <v-btn icon class="ml-n2">
+          <v-icon size="19"> mdi-minus </v-icon>
+        </v-btn>
+      </v-row>
+    </v-card>
 
-    <div class="mb-2">
-      01.
-      <v-contrainer>
+    <div v-for="(row, rowid) in rows" :key="rowid">
+      <div class="ml-3">
+        <span class="text-body-2">{{ row.title }}</span>
+      </div>
+      <v-container class="mt-n2 mb-n1">
         <v-row no-gutters>
-          <v-col>
+          <v-col
+            v-for="(chord, chordid) in row.chords"
+            :key="String(rowid) + '-' + String(chordid)"
+          >
             <v-card class="pa-2" outlined tile>
-              <span class="text-body-1">F</span>
-              <span class="text-body-1">7</span>
-            </v-card>
-          </v-col>
-          <v-col>
-            <v-card class="pa-2" outlined tile>
-              <span class="text-body-1">Bb</span>
-              <span class="text-body-1">7</span>
-            </v-card>
-          </v-col>
-          <v-col>
-            <v-card class="pa-2" outlined tile>
-              <span class="text-body-1">F</span>
-              <span class="text-body-1">7</span>
-            </v-card>
-          </v-col>
-          <v-col>
-            <v-card class="pa-2" outlined tile>
-              <span class="text-body-1">F</span>
-              <span class="text-body-1">7</span>
+              <span class="text-body-2">{{ chord.root }}{{ chord.ctype }}</span>
             </v-card>
           </v-col>
         </v-row>
-      </v-contrainer>
-    </div>
-    <div class="mb-2">
-      02.
-      <v-contrainer>
-        <v-row no-gutters>
-          <v-col>
-            <v-card class="pa-2" outlined tile>
-              <span class="text-body-1">Bb</span>
-              <span class="text-body-1">7</span>
-            </v-card>
-          </v-col>
-          <v-col>
-            <v-card class="pa-2" outlined tile>
-              <span class="text-body-1">Bb</span>
-              <span class="text-body-1">7</span>
-            </v-card>
-          </v-col>
-          <v-col>
-            <v-card class="pa-2" outlined tile>
-              <span class="text-body-1">F</span>
-              <span class="text-body-1">7</span>
-            </v-card>
-          </v-col>
-          <v-col>
-            <v-card class="pa-2" outlined tile>
-              <span class="text-body-1">A</span>
-              <span class="text-body-1">φ</span>
-              <span class="text-center">
-                <span class="text-body-1">D</span>
-                <span class="text-body-1">7</span>
-              </span>
-            </v-card>
-          </v-col>
-        </v-row>
-      </v-contrainer>
-    </div>
-    <div class="mb-2">
-      03.
-      <v-contrainer>
-        <v-row no-gutters>
-          <v-col>
-            <v-card class="pa-2" outlined tile>
-              <span class="text-body-1">G</span>
-              <span class="text-body-1">m7</span>
-            </v-card>
-          </v-col>
-          <v-col>
-            <v-card class="pa-2" outlined tile>
-              <span class="text-body-1">C</span>
-              <span class="text-body-1">7</span>
-            </v-card>
-          </v-col>
-          <v-col>
-            <v-card class="pa-2" outlined tile>
-              <span class="text-body-1">F</span>
-              <span class="text-body-1">7</span>
-            </v-card>
-          </v-col>
-          <v-col>
-            <v-card class="pa-2" outlined tile>
-              <span class="text-body-1">C</span>
-              <span class="text-body-1">7</span>
-            </v-card>
-          </v-col>
-        </v-row>
-      </v-contrainer>
+      </v-container>
     </div>
   </v-container>
 </template>
@@ -140,6 +62,35 @@ export default {
     chordAll: chord.chordAll,
     title: "Now's the time",
     key: "F",
+    rows: [
+      {
+        title: "01",
+        chords: [
+          { root: "F", ctype: "7" },
+          { root: "Bb", ctype: "7" },
+          { root: "F", ctype: "7" },
+          { root: "F", ctype: "7" },
+        ],
+      },
+      {
+        title: "02",
+        chords: [
+          { root: "Bb", ctype: "7" },
+          { root: "Bb", ctype: "7" },
+          { root: "F", ctype: "7" },
+          { root: "A", ctype: "φ" },
+        ],
+      },
+      {
+        title: "03",
+        chords: [
+          { root: "G", ctype: "m7" },
+          { root: "C", ctype: "7" },
+          { root: "F", ctype: "7" },
+          { root: "C", ctype: "7" },
+        ],
+      },
+    ],
   }),
 };
 </script>
