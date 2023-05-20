@@ -20,6 +20,17 @@
       </v-col>
     </v-row>
 
+    <v-row class="mt-n6">
+      <v-spacer></v-spacer>
+      <span class="mt-1">Transpose : </span>
+      <v-btn icon>
+        <v-icon size="20"> mdi-plus </v-icon>
+      </v-btn>
+      <v-btn icon class="ml-n2 mr-2">
+        <v-icon size="20"> mdi-minus </v-icon>
+      </v-btn>
+    </v-row>
+
     <div class="mb-2">
       01.
       <v-contrainer>
