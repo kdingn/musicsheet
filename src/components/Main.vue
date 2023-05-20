@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-row>
-      <v-col cols="8">
+      <v-col cols="7">
         <v-text-field
           label="title"
           outlined
@@ -9,8 +9,20 @@
           v-model="title"
         ></v-text-field>
       </v-col>
+      <v-col cols="5">
+        <v-text-field
+          label="composer"
+          outlined
+          dense
+          v-model="composer"
+        ></v-text-field>
+      </v-col>
+    </v-row>
+
+    <v-row>
       <v-col cols="4">
         <v-select
+          class="mt-n8"
           label="key"
           outlined
           dense
@@ -18,20 +30,34 @@
           :items="Object.keys(rootAll)"
         ></v-select>
       </v-col>
+      <v-col cols="8">
+        <v-card flat outlined class="mt-n9 mb-2">
+          <v-row class="ma-1">
+            <span class="mt-1 mr-2 ml-2">Transpose</span>
+            <span class="mt-1">:</span>
+            <v-btn
+              icon
+              @click="
+                transposeKey(1);
+                transposeChords(1);
+              "
+            >
+              <v-icon size="18"> mdi-plus </v-icon>
+            </v-btn>
+            <v-btn
+              icon
+              @click="
+                transposeKey(11);
+                transposeChords(11);
+              "
+              class="ml-n2"
+            >
+              <v-icon size="18"> mdi-minus </v-icon>
+            </v-btn>
+          </v-row>
+        </v-card>
+      </v-col>
     </v-row>
-
-    <v-card flat outlined class="mt-n6 mb-2">
-      <v-row class="ma-1">
-        <span class="mt-1 mr-4 ml-2">Transpose</span>
-        <span class="mt-1 mr-1">:</span>
-        <v-btn icon @click="transposeKey(1)">
-          <v-icon size="19"> mdi-plus </v-icon>
-        </v-btn>
-        <v-btn icon @click="transposeKey(11)" class="ml-n2">
-          <v-icon size="19"> mdi-minus </v-icon>
-        </v-btn>
-      </v-row>
-    </v-card>
 
     <div v-for="(row, rowid) in rows" :key="rowid">
       <div class="ml-3">
@@ -62,6 +88,7 @@ export default {
     rootAllInverse: chord.rootAllInverse,
     chordAll: chord.chordAll,
     title: "Now's the time",
+    composer: "Charlie Parker",
     key: "F",
     rows: [
       {
@@ -99,6 +126,13 @@ export default {
     },
     transposeKey(n) {
       this.key = this.changeRoot(this.key, n);
+    },
+    transposeChords(n) {
+      for (const row of this.rows) {
+        for (const chord of row.chords) {
+          chord.root = this.changeRoot(chord.root, n);
+        }
+      }
     },
   },
 };
