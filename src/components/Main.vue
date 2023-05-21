@@ -147,7 +147,8 @@ export default {
       this.rows[rowid].chords.push({ root: this.key, ctype: "" });
     },
     startEdit(rowid, chordid) {
-      this.rows[rowid].chords[chordid] = { root: "C#", ctype: "M7" };
+      this.rows[rowid].chords[chordid].root = "C#";
+      this.rows[rowid].chords[chordid].ctype = "M7";
     },
   },
 };
