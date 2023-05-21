@@ -59,17 +59,26 @@
       </v-col>
     </v-row>
 
-    <div v-for="(row, rowid) in rows" :key="rowid">
-      <div class="ml-3">
+    <div v-for="(row, rowid) in rows" :key="rowid" class="mb-3">
+      <v-row class="ml-3">
         <span class="text-body-2">{{ row.title }}</span>
-      </div>
-      <v-container class="mt-n2 mb-n1">
+        <v-spacer></v-spacer>
+        <v-btn icon x-small class="mr-4" @click="addChord(rowid)">
+          <v-icon>mdi-plus-box-outline</v-icon>
+        </v-btn>
+      </v-row>
+      <v-container>
         <v-row no-gutters>
           <v-col
             v-for="(chord, chordid) in row.chords"
             :key="String(rowid) + '-' + String(chordid)"
           >
-            <v-card class="pa-2" outlined tile>
+            <v-card
+              class="pa-2"
+              outlined
+              tile
+              @click="startEdit(rowid, chordid)"
+            >
               <span class="text-body-2">{{ chord.root }}{{ chord.ctype }}</span>
             </v-card>
           </v-col>
@@ -133,6 +142,12 @@ export default {
           chord.root = this.changeRoot(chord.root, n);
         }
       }
+    },
+    addChord(rowid) {
+      this.rows[rowid].chords.push({ root: this.key, ctype: "" });
+    },
+    startEdit(rowid, chordid) {
+      this.rows[rowid].chords[chordid] = { root: "C#", ctype: "M7" };
     },
   },
 };
