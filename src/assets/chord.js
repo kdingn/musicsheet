@@ -60,6 +60,19 @@ const rootAll = {
   Bb: 11,
   B: 0,
 };
+const ctypeAll = {
+  "": [1, 5, 8],
+  m: [1, 4, 8],
+  dim: [1, 4, 7],
+  aug: [1, 5, 9],
+  sus4: [1, 4, 8],
+  7: [1, 5, 8, 11],
+  m7: [1, 4, 8, 11],
+  "△7": [1, 5, 8, 12],
+  69: [1, 5, 10, 15],
+  m69: [1, 4, 10, 15],
+  φ: [1, 4, 7, 11],
+};
 
 const rootAllInverse = Object.fromEntries(
   Object.entries(rootAll).map(function (value) {
@@ -71,4 +84,5 @@ export default {
   chordAll,
   rootAll,
   rootAllInverse,
+  ctypeAll,
 };

@@ -85,6 +85,42 @@
         </v-row>
       </v-container>
     </div>
+
+    <div class="text-center">
+      <v-dialog v-model="editMode" width="300">
+        <v-card>
+          <v-card-title
+            class="mt-n1 blue-grey darken-3 white--text text-body-1"
+          >
+            Edit Chord
+            <v-spacer />
+            <div v-if="!(editRowId === 0) || !(editChordId === 0)">
+              <v-btn icon @click="deleteChord()">
+                <v-icon color="red"> mdi-delete </v-icon>
+              </v-btn>
+            </div>
+          </v-card-title>
+          <v-card-text class="mt-2">
+            <v-row>
+              <v-col>
+                <v-select
+                  label="root"
+                  v-model="rows[editRowId].chords[editChordId].root"
+                  :items="Object.keys(rootAll)"
+                ></v-select>
+              </v-col>
+              <v-col>
+                <v-select
+                  label="type"
+                  v-model="rows[editRowId].chords[editChordId].ctype"
+                  :items="Object.keys(ctypeAll)"
+                ></v-select>
+              </v-col>
+            </v-row>
+          </v-card-text>
+        </v-card>
+      </v-dialog>
+    </div>
   </v-container>
 </template>
 
@@ -93,9 +129,13 @@ import chord from "@/assets/chord";
 
 export default {
   data: () => ({
+    editMode: false,
+    editRowId: 0,
+    editChordId: 0,
     rootAll: chord.rootAll,
     rootAllInverse: chord.rootAllInverse,
     chordAll: chord.chordAll,
+    ctypeAll: chord.ctypeAll,
     title: "Now's the time",
     composer: "Charlie Parker",
     key: "F",
@@ -146,9 +186,16 @@ export default {
     addChord(rowid) {
       this.rows[rowid].chords.push({ root: this.key, ctype: "" });
     },
+    deleteChord() {
+      this.rows[this.editRowId].chords.splice(this.editChordId, 1);
+      this.editMode = false;
+      this.editChordId = 0;
+      this.editRowId = 0;
+    },
     startEdit(rowid, chordid) {
-      this.rows[rowid].chords[chordid].root = "C#";
-      this.rows[rowid].chords[chordid].ctype = "M7";
+      this.editMode = true;
+      this.editRowId = rowid;
+      this.editChordId = chordid;
     },
   },
 };
