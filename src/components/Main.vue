@@ -23,18 +23,26 @@
       <v-col cols="4">
         <v-select
           class="mt-n8"
-          label="key"
+          label="absolute key"
+          outlined
+          dense
+          v-model="abskey"
+          :items="Object.keys(rootAll)"
+        ></v-select>
+      </v-col>
+      <v-col cols="4">
+        <v-select
+          class="mt-n8"
+          label="relative key"
           outlined
           dense
           v-model="key"
           :items="Object.keys(rootAll)"
         ></v-select>
       </v-col>
-      <v-col cols="8">
+      <v-col cols="4">
         <v-card flat outlined class="mt-n9 mb-2">
           <v-row class="ma-1">
-            <span class="mt-1 mr-2 ml-2">Transpose</span>
-            <span class="mt-1">:</span>
             <v-btn
               icon
               @click="
@@ -62,7 +70,7 @@
     <div v-for="(row, rowid) in rows" :key="rowid" class="mb-3">
       <v-row class="ml-3">
         <span class="text-body-2">{{ row.title }}</span>
-        <v-spacer></v-spacer>
+        <v-spacer />
         <v-btn icon x-small class="mr-4" @click="addChord(rowid)">
           <v-icon>mdi-plus-box-outline</v-icon>
         </v-btn>
@@ -79,7 +87,18 @@
               tile
               @click="startEdit(rowid, chordid)"
             >
-              <span class="text-body-2">{{ chord.root }}{{ chord.ctype }}</span>
+              <v-row class="my-n3">
+                <v-col>
+                  <span class="text-body-2">
+                    {{ chord[0].root }}{{ chord[0].ctype }}
+                  </span>
+                </v-col>
+                <v-col>
+                  <span class="text-body-2">
+                    {{ chord[1].root }}{{ chord[1].ctype }}
+                  </span>
+                </v-col>
+              </v-row>
             </v-card>
           </v-col>
         </v-row>
@@ -90,7 +109,7 @@
       <v-dialog v-model="editMode" width="300">
         <v-card>
           <v-card-title
-            class="mt-n1 blue-grey darken-3 white--text text-body-1"
+            class="ml-n2 mr-n3 mt-n1 blue-grey darken-3 white--text text-body-1"
           >
             Edit Chord
             <v-spacer />
@@ -101,18 +120,42 @@
             </div>
           </v-card-title>
           <v-card-text class="mt-2">
+            <span>main chord</span>
             <v-row>
               <v-col>
                 <v-select
                   label="root"
-                  v-model="rows[editRowId].chords[editChordId].root"
+                  v-model="rows[editRowId].chords[editChordId][0].root"
                   :items="Object.keys(rootAll)"
                 ></v-select>
               </v-col>
               <v-col>
                 <v-select
                   label="type"
-                  v-model="rows[editRowId].chords[editChordId].ctype"
+                  v-model="rows[editRowId].chords[editChordId][0].ctype"
+                  :items="Object.keys(ctypeAll)"
+                ></v-select>
+              </v-col>
+            </v-row>
+            <v-row class="mb-n8 ml-0">
+              <span>sub chord</span>
+              <v-spacer />
+              <v-btn icon class="mt-n1 mr-0" @click="resetChord()">
+                <v-icon small color="red">mdi-close-box-outline</v-icon>
+              </v-btn>
+            </v-row>
+            <v-row>
+              <v-col>
+                <v-select
+                  label="root"
+                  v-model="rows[editRowId].chords[editChordId][1].root"
+                  :items="Object.keys(rootAll)"
+                ></v-select>
+              </v-col>
+              <v-col>
+                <v-select
+                  label="type"
+                  v-model="rows[editRowId].chords[editChordId][1].ctype"
                   :items="Object.keys(ctypeAll)"
                 ></v-select>
               </v-col>
@@ -138,35 +181,50 @@ export default {
     ctypeAll: chord.ctypeAll,
     title: "Now's the time",
     composer: "Charlie Parker",
+    abskey: "F",
     key: "F",
     rows: [
       {
         title: "01",
         chords: [
-          { root: "F", ctype: "7" },
-          { root: "Bb", ctype: "7" },
-          { root: "F", ctype: "7" },
-          { root: "F", ctype: "7" },
+          [
+            { root: "F", ctype: "7" },
+            { root: "", ctype: "" },
+          ],
+          [
+            { root: "Bb", ctype: "7" },
+            { root: "", ctype: "" },
+          ],
+          [
+            { root: "F", ctype: "7" },
+            { root: "", ctype: "" },
+          ],
+          [
+            { root: "Bb", ctype: "sus4" },
+            { root: "C#", ctype: "sus4" },
+          ],
+          // { root: "F", ctype: "7" },
+          // { root: "F", ctype: "7" },
         ],
       },
-      {
-        title: "02",
-        chords: [
-          { root: "Bb", ctype: "7" },
-          { root: "Bb", ctype: "7" },
-          { root: "F", ctype: "7" },
-          { root: "A", ctype: "φ" },
-        ],
-      },
-      {
-        title: "03",
-        chords: [
-          { root: "G", ctype: "m7" },
-          { root: "C", ctype: "7" },
-          { root: "F", ctype: "7" },
-          { root: "C", ctype: "7" },
-        ],
-      },
+      // {
+      //   title: "02",
+      //   chords: [
+      //     { root: "Bb", ctype: "7" },
+      //     { root: "Bb", ctype: "7" },
+      //     { root: "F", ctype: "7" },
+      //     { root: "A", ctype: "φ" },
+      //   ],
+      // },
+      // {
+      //   title: "03",
+      //   chords: [
+      //     { root: "G", ctype: "m7" },
+      //     { root: "C", ctype: "7" },
+      //     { root: "F", ctype: "7" },
+      //     { root: "C", ctype: "7" },
+      //   ],
+      // },
     ],
   }),
   methods: {
@@ -179,18 +237,26 @@ export default {
     transposeChords(n) {
       for (const row of this.rows) {
         for (const chord of row.chords) {
-          chord.root = this.changeRoot(chord.root, n);
+          chord[0].root = this.changeRoot(chord[0].root, n);
+          chord[1].root = this.changeRoot(chord[1].root, n);
         }
       }
     },
     addChord(rowid) {
-      this.rows[rowid].chords.push({ root: this.key, ctype: "" });
+      this.rows[rowid].chords.push([
+        { root: this.key, ctype: "" },
+        { root: "", ctype: "" },
+      ]);
     },
     deleteChord() {
       this.rows[this.editRowId].chords.splice(this.editChordId, 1);
       this.editMode = false;
       this.editChordId = 0;
       this.editRowId = 0;
+    },
+    resetChord() {
+      this.rows[this.editRowId].chords[this.editChordId][1].root = "";
+      this.rows[this.editRowId].chords[this.editChordId][1].ctype = "";
     },
     startEdit(rowid, chordid) {
       this.editMode = true;
