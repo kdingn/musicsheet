@@ -67,15 +67,15 @@
       </v-col>
     </v-row>
 
-    <div v-for="(row, rowid) in rows" :key="rowid" class="mb-3">
-      <v-row class="ml-3">
-        <span class="text-body-2">{{ row.title }}</span>
+    <div v-for="(row, rowid) in rows" :key="rowid">
+      <v-row class="ml-3 mr-0 mt-1">
+        <v-text-field v-model="row.title" dense></v-text-field>
         <v-spacer />
-        <v-btn icon x-small class="mr-4" @click="addChord(rowid)">
+        <v-btn icon x-small class="mr-3" @click="addChord(rowid)">
           <v-icon>mdi-plus-box-outline</v-icon>
         </v-btn>
       </v-row>
-      <v-container>
+      <v-container class="mt-n6">
         <v-row no-gutters>
           <v-col
             v-for="(chord, chordid) in row.chords"
@@ -88,7 +88,7 @@
               @click="startEdit(rowid, chordid)"
             >
               <v-row class="my-n3">
-                <v-col>
+                <v-col class="ml-1 mr-n8">
                   <span class="text-body-2">
                     {{ chord[0].root }}{{ chord[0].ctype }}
                   </span>
@@ -200,31 +200,53 @@ export default {
             { root: "", ctype: "" },
           ],
           [
-            { root: "Bb", ctype: "sus4" },
-            { root: "C#", ctype: "sus4" },
+            { root: "F", ctype: "7" },
+            { root: "", ctype: "" },
           ],
-          // { root: "F", ctype: "7" },
-          // { root: "F", ctype: "7" },
         ],
       },
-      // {
-      //   title: "02",
-      //   chords: [
-      //     { root: "Bb", ctype: "7" },
-      //     { root: "Bb", ctype: "7" },
-      //     { root: "F", ctype: "7" },
-      //     { root: "A", ctype: "φ" },
-      //   ],
-      // },
-      // {
-      //   title: "03",
-      //   chords: [
-      //     { root: "G", ctype: "m7" },
-      //     { root: "C", ctype: "7" },
-      //     { root: "F", ctype: "7" },
-      //     { root: "C", ctype: "7" },
-      //   ],
-      // },
+      {
+        title: "02",
+        chords: [
+          [
+            { root: "Bb", ctype: "7" },
+            { root: "", ctype: "" },
+          ],
+          [
+            { root: "Bb", ctype: "7" },
+            { root: "", ctype: "" },
+          ],
+          [
+            { root: "F", ctype: "7" },
+            { root: "", ctype: "" },
+          ],
+          [
+            { root: "A", ctype: "φ" },
+            { root: "D", ctype: "m7" },
+          ],
+        ],
+      },
+      {
+        title: "03",
+        chords: [
+          [
+            { root: "Bb", ctype: "7" },
+            { root: "", ctype: "" },
+          ],
+          [
+            { root: "C", ctype: "7" },
+            { root: "", ctype: "" },
+          ],
+          [
+            { root: "F", ctype: "7" },
+            { root: "", ctype: "" },
+          ],
+          [
+            { root: "C", ctype: "7" },
+            { root: "", ctype: "" },
+          ],
+        ],
+      },
     ],
   }),
   methods: {
