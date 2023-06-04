@@ -67,13 +67,27 @@
       </v-col>
     </v-row>
 
+    <!-- <v-card color="teal lighten-4"> -->
     <div v-for="(row, rowid) in rows" :key="rowid">
-      <v-row class="ml-3 mr-0 mt-1">
-        <v-text-field v-model="row.title" dense></v-text-field>
+      <v-row class="ml-3 mr-0">
+        <v-text-field
+          v-model="row.title"
+          dense
+          style="font-size: 14px"
+          class="mt-4"
+        ></v-text-field>
         <v-spacer />
-        <v-btn icon x-small class="mr-3" @click="addChord(rowid)">
-          <v-icon>mdi-plus-box-outline</v-icon>
-        </v-btn>
+        <div class="mt-5">
+          <v-btn icon x-small class="mr-3" @click="addChord(rowid)">
+            <v-icon>mdi-shape-square-plus</v-icon>
+          </v-btn>
+          <v-btn icon x-small class="mr-3" @click="addChord(rowid)">
+            <v-icon>mdi-arrow-left-bottom</v-icon>
+          </v-btn>
+          <v-btn color="red" icon x-small class="mr-3" @click="addChord(rowid)">
+            <v-icon>mdi-delete-empty-outline</v-icon>
+          </v-btn>
+        </div>
       </v-row>
       <v-container class="mt-n6">
         <v-row no-gutters>
@@ -104,6 +118,7 @@
         </v-row>
       </v-container>
     </div>
+    <!-- </v-card> -->
 
     <div class="text-center">
       <v-dialog v-model="editMode" width="300">
