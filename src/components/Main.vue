@@ -19,7 +19,7 @@
       </v-col>
     </v-row>
 
-    <v-row>
+    <v-row class="mb-n5">
       <v-col cols="4">
         <v-select
           class="mt-n8"
@@ -67,58 +67,64 @@
       </v-col>
     </v-row>
 
-    <!-- <v-card color="teal lighten-4"> -->
-    <div v-for="(row, rowid) in rows" :key="rowid">
-      <v-row class="ml-3 mr-0">
-        <v-text-field
-          v-model="row.title"
-          dense
-          style="font-size: 14px"
-          class="mt-4"
-        ></v-text-field>
-        <v-spacer />
-        <div class="mt-5">
-          <v-btn icon x-small class="mr-3" @click="addChord(rowid)">
-            <v-icon>mdi-shape-square-plus</v-icon>
-          </v-btn>
-          <v-btn icon x-small class="mr-3" @click="addChord(rowid)">
-            <v-icon>mdi-arrow-left-bottom</v-icon>
-          </v-btn>
-          <v-btn color="red" icon x-small class="mr-3" @click="addChord(rowid)">
-            <v-icon>mdi-delete-empty-outline</v-icon>
-          </v-btn>
-        </div>
-      </v-row>
-      <v-container class="mt-n6">
-        <v-row no-gutters>
-          <v-col
-            v-for="(chord, chordid) in row.chords"
-            :key="String(rowid) + '-' + String(chordid)"
-          >
-            <v-card
-              class="pa-2"
-              outlined
-              tile
-              @click="startEdit(rowid, chordid)"
+    <v-card color="teal lighten-4">
+      <div v-for="(row, rowid) in rows" :key="rowid">
+        <v-row class="ml-3 mr-0">
+          <v-text-field
+            v-model="row.title"
+            dense
+            style="font-size: 14px"
+            class="mt-4"
+          ></v-text-field>
+          <v-spacer />
+          <div class="mt-5">
+            <v-btn icon x-small class="mr-3" @click="addChord(rowid)">
+              <v-icon>mdi-shape-square-plus</v-icon>
+            </v-btn>
+            <v-btn icon x-small class="mr-3" @click="addRow(rowid)">
+              <v-icon>mdi-arrow-left-bottom</v-icon>
+            </v-btn>
+            <v-btn
+              color="red"
+              icon
+              x-small
+              class="mr-3"
+              @click="deleteRow(rowid)"
             >
-              <v-row class="my-n3">
-                <v-col class="ml-1 mr-n8">
-                  <span class="text-body-2">
-                    {{ chord[0].root }}{{ chord[0].ctype }}
-                  </span>
-                </v-col>
-                <v-col>
-                  <span class="text-body-2">
-                    {{ chord[1].root }}{{ chord[1].ctype }}
-                  </span>
-                </v-col>
-              </v-row>
-            </v-card>
-          </v-col>
+              <v-icon>mdi-delete-empty-outline</v-icon>
+            </v-btn>
+          </div>
         </v-row>
-      </v-container>
-    </div>
-    <!-- </v-card> -->
+        <v-container class="mt-n6">
+          <v-row no-gutters>
+            <v-col
+              v-for="(chord, chordid) in row.chords"
+              :key="String(rowid) + '-' + String(chordid)"
+            >
+              <v-card
+                class="pa-2"
+                outlined
+                tile
+                @click="startEdit(rowid, chordid)"
+              >
+                <v-row class="my-n3">
+                  <v-col class="ml-1 mr-n8">
+                    <span class="text-body-2">
+                      {{ chord[0].root }}{{ chord[0].ctype }}
+                    </span>
+                  </v-col>
+                  <v-col>
+                    <span class="text-body-2">
+                      {{ chord[1].root }}{{ chord[1].ctype }}
+                    </span>
+                  </v-col>
+                </v-row>
+              </v-card>
+            </v-col>
+          </v-row>
+        </v-container>
+      </div>
+    </v-card>
 
     <div class="text-center">
       <v-dialog v-model="editMode" width="300">
@@ -299,6 +305,12 @@ export default {
       this.editMode = true;
       this.editRowId = rowid;
       this.editChordId = chordid;
+    },
+    addRow(rowid) {
+      rowid;
+    },
+    deleteRow(rowid) {
+      this.rows.splice(rowid, 1);
     },
   },
 };
