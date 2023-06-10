@@ -1,5 +1,6 @@
 <template>
   <v-container>
+    <!-- info area -->
     <v-row>
       <v-col cols="7">
         <v-text-field
@@ -19,6 +20,7 @@
       </v-col>
     </v-row>
 
+    <!-- key area -->
     <v-row class="mb-n5">
       <v-col cols="4">
         <v-select
@@ -66,6 +68,7 @@
       </v-col>
     </v-row>
 
+    <!-- chord area -->
     <v-card color="teal lighten-4">
       <div v-for="(row, rowid) in rows" :key="rowid">
         <v-row class="ml-3 mr-0">
@@ -125,6 +128,7 @@
       </div>
     </v-card>
 
+    <!-- edit area -->
     <div class="text-center">
       <v-dialog v-model="editMode" width="300">
         <v-card>
