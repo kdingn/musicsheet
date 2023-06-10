@@ -28,19 +28,18 @@
           dense
           v-model="abskey"
           :items="Object.keys(rootAll)"
+          @change="key = abskey"
         ></v-select>
       </v-col>
-      <v-col cols="4">
-        <v-select
-          class="mt-n8"
-          label="relative key"
-          outlined
-          dense
-          v-model="key"
-          :items="Object.keys(rootAll)"
-        ></v-select>
+      <v-col cols="5">
+        <v-card flat outlined class="mt-n8 mb-2 py-2 pl-3">
+          <span>
+            relative key :
+            {{ key }}
+          </span>
+        </v-card>
       </v-col>
-      <v-col cols="4">
+      <v-col cols="3">
         <v-card flat outlined class="mt-n9 mb-2">
           <v-row class="ma-1">
             <v-btn
@@ -307,7 +306,12 @@ export default {
       this.editChordId = chordid;
     },
     addRow(rowid) {
-      rowid;
+      var add = this.rows[rowid];
+      var pre = this.rows.slice(0, rowid + 1);
+      var pst = this.rows.slice(rowid + 1);
+      this.rows = pre;
+      this.rows.push(add);
+      this.rows = this.rows.concat(pst);
     },
     deleteRow(rowid) {
       this.rows.splice(rowid, 1);
