@@ -188,6 +188,22 @@
         </v-card>
       </v-dialog>
     </div>
+
+    <!-- bottom area -->
+    <v-btn
+      @click="bottomSheet = !bottomSheet"
+      fab
+      fixed
+      bottom
+      right
+      color="amber darken-2"
+      dark
+    >
+      <v-icon>mdi-pencil</v-icon>
+    </v-btn>
+    <v-bottom-sheet v-model="bottomSheet">
+      <v-sheet class="text-center" height="400px"> aaaa </v-sheet>
+    </v-bottom-sheet>
   </v-container>
 </template>
 
@@ -199,6 +215,7 @@ export default {
     editMode: false,
     editRowId: 0,
     editChordId: 0,
+    bottomSheet: false,
     rootAll: chord.rootAll,
     rootAllInverse: chord.rootAllInverse,
     chordAll: chord.chordAll,
@@ -323,3 +340,11 @@ export default {
   },
 };
 </script>
+
+<style>
+#lateral .v-btn-bottom-right {
+  bottom: 0;
+  position: absolute;
+  margin: 0 0 16px 16px;
+}
+</style>
