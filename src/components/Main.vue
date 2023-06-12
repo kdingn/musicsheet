@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container color="blue">
     <!-- info area -->
     <v-row>
       <v-col cols="7">
@@ -69,7 +69,7 @@
     </v-row>
 
     <!-- chord area -->
-    <v-card color="teal lighten-4">
+    <v-card color="teal lighten-4" class="mb-16">
       <div v-for="(row, rowid) in rows" :key="rowid">
         <v-row class="ml-3 mr-0">
           <v-text-field
@@ -189,20 +189,35 @@
       </v-dialog>
     </div>
 
-    <!-- bottom area -->
+    <!-- bottom menu -->
     <v-btn
-      @click="bottomSheet = !bottomSheet"
+      @click="bottomMenu = !bottomMenu"
       fab
       fixed
       bottom
       right
       color="amber darken-2"
       dark
+      class="mb-n1 br-n1"
     >
-      <v-icon>mdi-pencil</v-icon>
+      <v-icon>mdi-menu</v-icon>
     </v-btn>
-    <v-bottom-sheet v-model="bottomSheet">
-      <v-sheet class="text-center" height="400px"> aaaa </v-sheet>
+    <v-bottom-sheet v-model="bottomMenu">
+      <v-sheet
+        class="text-left px-4 pt-2"
+        height="100px"
+        color="blue-grey lighten-4"
+      >
+        <span class="font-weight-bold"> Menu </span>
+        <v-divider class="mt-1" />
+        <div class="text-center mt-1">
+          <v-btn class="mt-2 mx-1" depressed color="blue-grey" dark
+            >open folder</v-btn
+          >
+          <v-btn class="mt-2 mx-1" depressed color="primary" dark>import</v-btn>
+          <v-btn class="mt-2 mx-1" depressed color="teal" dark>export</v-btn>
+        </div>
+      </v-sheet>
     </v-bottom-sheet>
   </v-container>
 </template>
@@ -215,7 +230,7 @@ export default {
     editMode: false,
     editRowId: 0,
     editChordId: 0,
-    bottomSheet: false,
+    bottomMenu: false,
     rootAll: chord.rootAll,
     rootAllInverse: chord.rootAllInverse,
     chordAll: chord.chordAll,
@@ -327,7 +342,7 @@ export default {
       this.editChordId = chordid;
     },
     addRow(rowid) {
-      var add = this.rows[rowid];
+      var add = JSON.parse(JSON.stringify(this.rows[rowid]));
       var pre = this.rows.slice(0, rowid + 1);
       var pst = this.rows.slice(rowid + 1);
       this.rows = pre;
@@ -340,11 +355,3 @@ export default {
   },
 };
 </script>
-
-<style>
-#lateral .v-btn-bottom-right {
-  bottom: 0;
-  position: absolute;
-  margin: 0 0 16px 16px;
-}
-</style>
